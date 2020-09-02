@@ -99,6 +99,13 @@ var startGame = function() {
       enemyHealth = 50;
 
       fight(pickedEnemyName);
+      //if we are not at the last enemy in the array
+      if (playerHealth > 0 && i < enemyNames.length - 1){
+        var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+        if(storeConfirm) {
+        shop();
+        }
+      }
     }
   
     else {
@@ -125,7 +132,52 @@ var endGame = function() {
   }
   // window.alert("The game has now ended. Let's see how you did!");
 };
+var shop = function() {
+//ask player what they would like to do
+var shopOptionPrompt = window.prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice");
+//use switch to carry out action
+switch (shopOptionPrompt) {
 
+  //REFILL
+  case "refill":
+    case "REFILL":
+    if (playerMoney >= 7) {
+    window.alert("Refilling player's health by 20 for 7 dollars.");
+    //increase health & decrease money
+    playerHealth = playerHealth + 20;
+    playerMoney = playerMoney - 7;
+    } else {
+      window.alert("You don't have enough money!");
+    }
+    break;
+
+    //UPGRADE
+  case "upgrade":
+    case "UPGRADE":
+    if (playerMoney >= 7) {
+    window.alert("Upgrading player's attack by 6 for 7 dollars.");
+    //increase attack & decrease money
+    playerAttack = playerAttack + 6;
+    playerMoney = playerMoney - 7;
+    } else {
+      window.alert("You don't have enough money!");
+    }
+    break;
+
+    //LEAVE
+  case "leave":
+    case "LEAVE":
+    window.alert("Leaving the store.") ;
+    
+    break;
+
+    //INVALID RESPONSE
+    default: 
+    window.alert("You did not pick a valid option. Try again.");
+    shop();
+    break;
+}
+};
 startGame()
 
 
